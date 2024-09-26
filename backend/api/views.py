@@ -1,5 +1,6 @@
 import json
 from django.http import JsonResponse
+from django.forms.models import model_to_dict
 
 from products.models import Product
 
@@ -12,8 +13,7 @@ def api_home(request,*args,**kwargs):
     data = {}
 
     if model_data:
-        data['title'] = model_data.title
-        data['content'] = model_data.content
-        data['price'] = model_data.price
+        # fields are the data that i need to add only
+        data = model_to_dict(model_data , fields=['id','title','price'])
 
     return JsonResponse(data)
